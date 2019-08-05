@@ -1,5 +1,5 @@
 DataFilePath:
-    ..\\..\\Data\\Common\\UCI_Income\\train
+    ../../../Data/Common/UCI_Income/train
 HasHeader:
     Yes
 Separator:
@@ -7,21 +7,21 @@ Separator:
 CategoricalColumns:
     - workclass
     - education
-    - marital.status
+    - maritalstatus
     - occupation
     - relationship
     - race
     - sex
-    - native.country
-    - label.IsOver50K.
+    - nativecountry
+    - label_IsOver50K
 NumericalColumns:
     - age 
     - fnlwgt
-    - education.num
-    - capital.gain
-    - capital.loss
-    - hours.per.week
+    - educationnum
+    - capitalgain
+    - capitalloss
+    - hoursperweek
 Target:
-    label.IsOver50K.
+    label_IsOver50K
 RLogFilePath:
     adult.log.r

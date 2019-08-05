@@ -97,9 +97,6 @@ if (loadSQLData == TRUE) {
   odbcClose(dbhandle)
 }
 
-## Replace missing values with 0
-trainDF[is.na(trainDF)] <- 0
-
 ## SELECT RELVANT COLUMNS 
 targetCol <- config$targetCol[1];
 featureColsTmp <- eval(parse(text=config$featureCols[1])); 
@@ -179,10 +176,12 @@ if (runXgBoost == TRUE) {
   colsample_bytree <- eval(parse(text=config$xgBoostParams[6]));
   min_child_weight <- eval(parse(text=config$xgBoostParams[7]));
   xgBoostObjective <- eval(parse(text=config$xgBoostParams[8])); 
-  xgBoostGrid = expand.grid(.nrounds = nrounds, .eta = eta, .max_depth = max_depth, .gamma = gamma, .colsample_bytree = colsample_bytree, .min_child_weight = min_child_weight);
+  subsample        <- eval(parse(text=config$xgBoostParams[9]));
+  xgBoostGrid = expand.grid(.nrounds = nrounds, .eta = eta, .max_depth = max_depth, .gamma = gamma, .colsample_bytree = colsample_bytree, .min_child_weight = min_child_weight, .subsample = subsample);
   n_xgBoostgrid <- min(nrow(xgBoostGrid), nGridstoSweep);
   set.seed(123)
   xgBoostGrid <- xgBoostGrid[sample(as.numeric(rownames(xgBoostGrid)), n_xgBoostgrid),]
+  
 }
 ```
 
@@ -260,7 +259,7 @@ if (runXgBoost == TRUE) {
 
 
 
-###Variable importance: Plot top 10 relative variable importances for different models
+###Variable importance: Plot top 20 relative variable importances for different models
 ```{r Variable importance, message=FALSE, warning=FALSE, fig.width=12, fig.height=6, echo=FALSE}
 if (runGlmnet == TRUE) {vI <- varImp(object=netFit, useModel = TRUE, scale=TRUE);  p1 <- plot(vI, main = "glmNet", xlab='Relative Importance', ylab = 'Feature', top=10);}
 if (runRf == TRUE) {vI <- varImp(object=rfFit, useModel = TRUE, scale=TRUE); p2 <- plot(vI, main = "randomForest", xlab='Relative Importance', ylab = 'Feature', top=10);}

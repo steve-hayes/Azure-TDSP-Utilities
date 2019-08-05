@@ -1,11 +1,13 @@
 DataFilePath:
-    ..\\..\\Data\\Common\\UCI_Bike_Rental\\hour.csv
+    ..\\..\\..\\Data\\Common\\UCI_Bike_Rental\\hour.csv
 HasHeader:
     Yes
 Separator:
     ','
 Target:
     cnt
+DateTimeColumns:
+    dteday: "%Y-%m-%d"
 ColumnsToExclude:
     instant
 RLogFilePath:
